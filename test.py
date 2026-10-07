@@ -2,4 +2,6 @@ import re, fnmatch
 from pathlib import Path
 import yaml
 
-Select-String -Path .\projects\interactions\tasks.yaml -Pattern 'name:\s*"?(fact_meeting|fact_client_ptcpt|dim_sub_type|dim_body_notes|fact_event|dim_sub_event|fact_sub_event_attendees|fact_bnpp_ptcpt)"?\s*$' | Select-Object LineNumber, Line
+
+sudo docker exec airflow_airflow-worker.3.6gqn997ty5pv5ha4fnmu4shh7 grep -n "table_name" /opt/airflow/dags/core/src/core/path_resolver.py /opt/airflow/dags/core/src/core/models.py
+
