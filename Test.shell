@@ -1,0 +1,11 @@
+$L = Get-Content projects/interactions/tasks.yaml
+$starts = @(for ($i=0; $i -lt $L.Count; $i++) { if ($L[$i] -match '^\s{2}- name:') { $i } })
+$beta = 0; $missing = @()
+for ($k=0; $k -lt $starts.Count; $k++) {
+  $s = $starts[$k]; $e = if ($k -lt $starts.Count-1) { $starts[$k+1] } else { $L.Count }
+  $blk = $L[$s..($e-1)] | Where-Object { $_ -notmatch '^\s*#' }
+  if (-not ($blk -match '^\s+layer:\s*beta')) { continue }
+  $beta++
+  if (-not ($blk -match 'format-version')) { $missing += ($L[$s] -replace '^\s{2}- name:\s*','').Trim() }
+}
+"BETA TASKS: $beta"; "MISSING: $($missing.Count)"; $missing
