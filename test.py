@@ -2,4 +2,4 @@ import os
 import pytest
 
 
-cd /app && python -c "from src.api.routes.rates.settings import settings; settings.s3creds('rates'); print('BUCKET:', settings.bucket_name, '| ENDPOINT:', settings.endpoint)"
+sed -i 's/^\(\s*\)s3_connection = SuperS3Custom(/\1settings.s3creds("rates")\n\1s3_connection = SuperS3Custom(/' /app/src/api/routes/rates/rates.py
