@@ -1,4 +1,5 @@
 import os 
 import pytest
 
-python -c "import boto3,os; ecs=boto3.resource('s3', endpoint_url='https://'+os.environ['ENDPOINT_RATES'], aws_access_key_id=os.environ['ACCESS_KEY_RATES'], aws_secret_access_key=os.environ['SECRET_KEY'], verify='/mnt/nfs/ssl/CA_Bundle.pem'); print('ECS OK:', [o.key for o in ecs.Bucket(os.environ['BUCKET_RATES']).objects.limit(3)])"
+
+curl.exe -s -o rates_test.zip -w "HTTP %{http_code}  size %{size_download}`n" -H "Authorization: Bearer HIS_TOKEN" "https://api.qdi.cib.echonet/rates/new/?cols=request_date,is_eScope,booking_system_name,response_type&sdate=20260201&edate=20260227"
